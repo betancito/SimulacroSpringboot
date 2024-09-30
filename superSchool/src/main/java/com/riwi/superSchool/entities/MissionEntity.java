@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@Table(name = "mission")
 public class MissionEntity extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +29,7 @@ public class MissionEntity extends Auditable{
     @Column
     private Difficulty difficulty;
 
-    @Column
-    private List<AbilityEntity> necessaryAbilities;
+    @ManyToOne
+    @JoinColumn(name = "ability_id", nullable = false)
+    private AbilityEntity necessaryAbilities;
 }

@@ -11,17 +11,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "evaluation")
 public class EvaluationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    @Column
+
     @ManyToOne(optional = false)
+    @JoinColumn(name = "mission_id")
     private MissionEntity missionEntity;
 
-    @Column
+
     @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;
 
     @Column
