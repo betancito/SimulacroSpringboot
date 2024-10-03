@@ -1,48 +1,33 @@
-package com.riwi.superSchool.entities;
+package com.riwi.superSchool.dtos.request;
 
-import com.riwi.superSchool.enums.UserRole;
-import jakarta.persistence.*;
-import lombok.*;
+import com.riwi.superSchool.model.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@Table(name = "user")
-public class UserEntity implements UserDetails {
-    @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
-    private Long id;
-
-    @Column
-    private String name;
-
-    @Column
-    private String email;
-
-    @Column
-    private String password;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role;
+public class UserPrincipal implements UserDetails {
+    private UserEntity user;
+    public UserPrincipal(UserEntity user) {
+        this.user = user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return user.getUsername();
     }
 
     @Override

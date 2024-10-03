@@ -1,12 +1,11 @@
 package com.riwi.superSchool.controllers;
 
-import com.riwi.superSchool.entities.UserEntity;
+import com.riwi.superSchool.model.UserEntity;
 import com.riwi.superSchool.enums.UserRole;
 import com.riwi.superSchool.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ public class UserController {
             @Parameter(description = "Role")@RequestParam("Role")UserRole userRole
             ) {
         UserEntity user = new UserEntity();
-        user.setName(name);
+        user.setUsername(name);
         user.setEmail(email);
         user.setPassword(password);
         user.setRole(userRole);
@@ -76,7 +75,7 @@ public class UserController {
                                                  @Parameter(description = "Role")@RequestParam("Role")UserRole userRole) {
         try{
             UserEntity user = userService.getUserById(id);
-            user.setName(name);
+            user.setUsername(name);
             user.setEmail(email);
             user.setPassword(password);
             user.setRole(userRole);

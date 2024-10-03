@@ -1,4 +1,4 @@
-package com.riwi.superSchool.entities;
+package com.riwi.superSchool.model;
 
 import com.riwi.superSchool.enums.RegisteredAction;
 import jakarta.persistence.Column;

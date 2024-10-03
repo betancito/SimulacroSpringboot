@@ -9,30 +9,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
-public class UserService{
+public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepo userRepo;
 
-    public UserEntity SaveUser(UserEntity user) {
-        return userRepo.save(user);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity user = userRepo.findByUsername(username);
+        if (user == null) {
+            System.out.printf("User not found: %s", username);
+            throw new UsernameNotFoundException(username);
+        }
+        return new UserPrincipal(user);
     }
-
-    public List<UserEntity> getAllUsers() {
-        return userRepo.findAll();
-    }
-
-    public UserEntity getUserById(Long id) {
-        return userRepo.findById(id).get();
-    }
-
-    public void deleteUserById(Long id) {
-        userRepo.deleteById(id);
-    }
-
-
 }

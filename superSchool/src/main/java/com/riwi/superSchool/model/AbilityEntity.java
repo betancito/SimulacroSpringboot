@@ -1,4 +1,4 @@
-package com.riwi.superSchool.entities;
+package com.riwi.superSchool.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
