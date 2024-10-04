@@ -23,17 +23,12 @@ public class UserController {
     @PostMapping
     @Operation(summary = "Create a new user", description = "Endpoint to create an user")
     @ApiResponse(responseCode = "201", description = "User created successfully")
-    public ResponseEntity<UserEntity> createUser(
-            @Parameter(description = "Name") @RequestParam("Name") String name,
-            @Parameter(description = "email") @RequestParam("Email") String email,
-            @Parameter(description = "Password")@RequestParam("Password") String password,
-            @Parameter(description = "Role")@RequestParam("Role")UserRole userRole
-            ) {
-        UserEntity user = new UserEntity();
-        user.setUsername(name);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setRole(userRole);
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
+        UserEntity User = new UserEntity();
+        User.setUsername(user.getUsername());
+        User.setEmail(user.getEmail());
+        User.setPassword(user.getPassword());
+        User.setRole(user.getRole());
         try {
             return ResponseEntity.ok(userService.SaveUser(user));
         }catch (Exception e) {
@@ -54,7 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @Operation (summary = "Gets suer by id", description = "Endpoint to get user By Id")
+    @Operation (summary = "Gets user by id", description = "Endpoint to get user By Id")
     @ApiResponse(responseCode = "200", description = "User successfully found by id")
     @ApiResponse(responseCode = "404", description = "User could not be found by id")
     public ResponseEntity<UserEntity> getById(@PathVariable Long id) {
@@ -86,7 +81,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletes an suer by id", description = "Endpoint to delete an user by id")
+    @Operation(summary = "Deletes an User by id", description = "Endpoint to delete an user by id")
     @ApiResponse(responseCode = "204", description = "User deleted successfully")
     @ApiResponse(responseCode = "404", description = "User could not be found to be deleted")
     public void deleteUser(@PathVariable Long id) {
