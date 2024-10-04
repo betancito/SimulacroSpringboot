@@ -4,14 +4,13 @@ import com.riwi.superSchool.model.UserEntity;
 import com.riwi.superSchool.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 //controller to have login and register stored
-public class SessionController {
+public class AuthController {
     @Autowired
     private UserService userService;
     @PostMapping("/register")
